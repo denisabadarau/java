@@ -36,44 +36,47 @@ public class DrawingPanel extends JPanel{
             }   });
     }
     private void drawShape(int x, int y) {
+        String tool=String.valueOf(frame.configPanel.toolCombo.getSelectedItem());
+
+
         Random rand=new Random();
         int radius =rand.nextInt(100); //generate a random number
         Color color=Color.BLACK;
         Random rnd=new Random();
         String col=String.valueOf(frame.configPanel.colorCombo.getSelectedItem()); //get the string value  from colorCombo(random or black)
-        if(col.equals("Random"))
-        {
-            //generate 3 random numbers from 0 to 255 and then use the Color(int,int,int) constructor to create a new Color instance
-            int red,green,blue;
-            red=rnd.nextInt(255);
-            green=rnd.nextInt(255);
-            blue=rnd.nextInt(255);
-            color=new Color(red,green,blue);
 
-        }
-        graphics.setColor(color);
-        String shapes=String.valueOf(frame.configPanel.listOfShapes.getSelectedItem()); //get the string value from listOfShapes(polygon or cercle)
-        if(shapes.equals("Square"))
-        {
-            graphics.fill(new RegularPolygon(x, y, radius, 4));
-        }
-        else
-            if(shapes.equals("Cercle"))
-        {
-            graphics.fill(new Cercle(x,y,radius));
-        }
-        else if(shapes.equals("Oval"))
-        {
-            graphics.fill(new Oval(x,y,radius));
-        }
-            else if(shapes.equals("Triangle"))
-            {
-                graphics.fill(new RegularPolygon(x, y, radius, 3));
+        if(tool.equals("Painter")) {
+            if (col.equals("Random")) {
+                //generate 3 random numbers from 0 to 255 and then use the Color(int,int,int) constructor to create a new Color instance
+                int red, green, blue;
+                red = rnd.nextInt(255);
+                green = rnd.nextInt(255);
+                blue = rnd.nextInt(255);
+                color = new Color(red, green, blue);
+
             }
-            else if(shapes.equals("Hexagon"))
-            {
+            graphics.setColor(color);
+            String shapes = String.valueOf(frame.configPanel.listOfShapes.getSelectedItem()); //get the string value from listOfShapes(polygon or cercle)
+            if (shapes.equals("Square")) {
+                graphics.fill(new RegularPolygon(x, y, radius, 4));
+            } else if (shapes.equals("Circle")) {
+                graphics.fill(new Cercle(x, y, radius));
+            } else if (shapes.equals("Oval")) {
+                graphics.fill(new Oval(x, y, radius));
+            } else if (shapes.equals("Triangle")) {
+                graphics.fill(new RegularPolygon(x, y, radius, 3));
+            } else if (shapes.equals("Hexagon")) {
                 graphics.fill(new RegularPolygon(x, y, radius, 6));
             }
+        }
+        else if(tool.equals("Eraser"))
+        {
+            //create an white cercle rhat will be my eraser
+            color=Color.WHITE;
+            graphics.setColor(color);
+            graphics.fill(new Cercle(x,y,30));
+        }
+
     }
     @Override
     public void update(Graphics g) { }
@@ -90,5 +93,5 @@ public class DrawingPanel extends JPanel{
         graphics.setColor(Color.WHITE); //fill the image with white
         graphics.fillRect(0, 0, W, H);
         updateUI();
-}
+    }
 }
