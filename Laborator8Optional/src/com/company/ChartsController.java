@@ -1,0 +1,41 @@
+package com.company;
+
+import java.sql.*;
+/* Controllerul chartului in care implementez functiile de  inserare a unui album, vizualizarea datelor unui chart, si afisarea rankingului unui artist in functie de pozitia in chart*/
+public class ChartsController {
+
+    Connection con = DataBase.getConnection();
+    PreparedStatement statement;
+    String sql;
+
+    public void insertAlbum(String chartName, String albumName, int rank) {
+        try {
+            statement = (PreparedStatement) con.createStatement();
+            sql = "INSERT INTO charts(chart_name, album_name, rank) VALUES(" + "'" + chartName + "', "  + albumName + "," + rank + ")";
+            statement.executeUpdate(sql);
+            statement.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    public void showChart(String chartName) {
+        try {
+            statement = (PreparedStatement) con.createStatement();
+            sql = "SELECT * FROM charts where chart_name = " + "'" + chartName + "'" + " order by rank";
+            ResultSet querry = statement.executeQuery(sql);
+            while (querry.next()) {
+                String albumName = querry.getString("album_name");
+                int rank = querry.getInt("rank");
+                System.out.println("Album Name: " + albumName);
+                System.out.println("Rank: " + rank);
+
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
+    }
+
+}
