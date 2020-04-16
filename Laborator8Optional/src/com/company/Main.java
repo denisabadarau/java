@@ -5,47 +5,34 @@ import java.sql.SQLException;
 public class Main {
 
     public static void main(String[] args) {
-        try {
 
-            /*cele 3 controllere*/
-            AlbumsController album = new AlbumsController();
-            ArtistController artist = new ArtistController();
-            ChartsController chart=new ChartsController();
+        /*cele 3 controllere*/
+        AlbumsController album = new AlbumsController();
+        ArtistController artist = new ArtistController();
+        ChartsController chart = new ChartsController();
 
-            //inseram in albums 3 albume
-            album.create("Mi-e foame", 3,1996);
-            album.create("Mi-e somn", 2, 1999);
-            album.create("Noapte buna", 1, 2000);
-            DataBase.commit();
+        Artist artist1 = new Artist();
+        Artist artist2 = new Artist();
+        Artist artist3 = new Artist();
 
-            int albumID = album.findByArtist(3);
-            System.out.println("Id-ul albumului: " + albumID);
+        //3 artisti generati random
+        artist1.generateRandomArtists();
+        artist2.generateRandomArtists();
+        artist3.generateRandomArtists();
 
-            /*inseram 3 artisti*/
-            artist.create("Denisa", "Romania");
-            artist.create("Ionela","America");
-            artist.create("Madonna","Franta");
-            DataBase.commit();
+        Album album1 = new Album();
+        Album album2 = new Album();
+        Album album3 = new Album();
 
-            //Chart c=new Chart("My top");
-            /*inserez in chart cele 3 albume*/
-            chart.insertAlbum("My top","Noapte buna",1);
-            chart.insertAlbum("My top","Mi-e foame",2);
-            chart.insertAlbum("My top","Mi-e somn",3);
+        //3 albume generate random
+        album1.generateRandomAlbum();
+        album2.generateRandomAlbum();
+        album3.generateRandomAlbum();
 
-            int artistID = artist.findByName("Denisa");
-            System.out.println("Id-ul artistului: " + artistID);
+        chart.insertAlbum("My top", album1, 1);
+        chart.insertAlbum("My top", album2, 2);
+        chart.insertAlbum("My top", album3, 3);
 
-        } catch (SQLException e) {
-            System.err.println(e);
-            DataBase.rollback();
-        }//inchidem conexiunea cu baza de date
-        finally {
-            try {
-                DataBase.closeConnection();
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        chart.showChart("My top");
     }
 }

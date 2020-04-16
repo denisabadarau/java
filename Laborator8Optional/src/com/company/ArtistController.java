@@ -1,26 +1,32 @@
 package com.company;
 
 import java.sql.*;
-
+/*optiunea de a adauga un artist in baza de date*/
 public class ArtistController {
-    public void create(String artistName, String artistCountry) throws SQLException {
-        Connection con = DataBase.getConnection();
-        try (PreparedStatement statement = con.prepareStatement("insert into artists (name, country) values (?, ?)")) {
-            statement.setString(1, artistName);
-            statement.setString(2, artistCountry);
-            statement.executeUpdate();
-            DataBase.commit();
-        }
+    private int idArtist=0;
+    Connection con = DataBase.getConnection();
+    PreparedStatement statement;
+    String sql;
+
+    public int getIdArtist() {
+        return idArtist;
     }
 
+    public void increaseIdArtist()
+    {
+        this.idArtist++;
+    }
 
-    public Integer findByName(String artistName) throws SQLException {
-        Connection con = DataBase.getConnection();
-        try (Statement statemet = con.createStatement()) {
-            ResultSet querry = statemet.executeQuery("select id from artists where name='" + artistName + "'");
-            Integer id = querry.next() ? querry.getInt(1) : null;
-            querry.close();
-            return id;
+    public void insertArtist(Artist artist)
+    {
+        try {
+            statement = (PreparedStatement) con.createStatement();
+            sql = "INSERT INTO artists(id,name,country) values(" + artist.getIdArtist() + "," + artist.getNameArtist() + "," + artist.getCountry() + ")";
+            statement.executeUpdate(sql);
+            statement.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
         }
     }
 }

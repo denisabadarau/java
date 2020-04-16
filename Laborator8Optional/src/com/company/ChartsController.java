@@ -1,17 +1,17 @@
 package com.company;
 
 import java.sql.*;
-/* Controllerul chartului in care implementez functiile de  inserare a unui album, vizualizarea datelor unui chart, si afisarea rankingului unui artist in functie de pozitia in chart*/
+/* Controllerul chartului in care implementez functiile de  inserare a unui album, vizualizarea datelor unui chart*/
 public class ChartsController {
 
     Connection con = DataBase.getConnection();
     PreparedStatement statement;
     String sql;
 
-    public void insertAlbum(String chartName, String albumName, int rank) {
+    public void insertAlbum(String chartName, Album album, int rank) {
         try {
             statement = (PreparedStatement) con.createStatement();
-            sql = "INSERT INTO charts(chart_name, album_name, rank) VALUES(" + "'" + chartName + "', "  + albumName + "," + rank + ")";
+            sql = "INSERT INTO charts(chart_name, album_name, rank) VALUES(" + "'" + chartName + "', "  + album.getNameAlbum() + "," + rank + ")";
             statement.executeUpdate(sql);
             statement.close();
         } catch (Exception e) {

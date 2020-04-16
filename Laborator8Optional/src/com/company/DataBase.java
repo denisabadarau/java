@@ -39,20 +39,5 @@ public class DataBase {
         if(connection!=null)
             connection.close();
     }
-    //Implement the method commit()
-    static void commit() {
-        try {
-            connection.commit();
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    //Implement the method rollback()
-    static void rollback() {
-        try {
-            connection.rollback();
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+
 }
