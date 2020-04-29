@@ -25,7 +25,7 @@ public class GameServer {
 
                 System.out.println("A sosit clientul...");
                 //se executa comanda clientului intr-un thread nou
-                new ClientThread(socket).start();
+                new ClientThread(socket,serverSocket).start();
 
             }
         }catch(IOException e)

@@ -4,15 +4,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ClientThread extends Thread{
     private Socket socket=null;
+    ServerSocket serverSocket=null;
 
     //o instanta a acestei clase este responsabila cu comunicarea cu un client Socket
-    public ClientThread(Socket socket)
+    public ClientThread(Socket socket, ServerSocket serverSocket )
     {
         this.socket=socket;
+        this.serverSocket=serverSocket;
     }
 
     public void run()
@@ -41,6 +44,7 @@ public class ClientThread extends Thread{
 
                     //inchid socketul
                     socket.close();
+                    serverSocket.close();
                     break;
                 } else {
                     //in caz contrar, afisez comanda

@@ -28,7 +28,11 @@ public class GameClient {
                 comanda = scan.nextLine();
 
                 //clientul se opreste cand citeste de la tastatura "exit"
-                if (comanda.equals("exit")) break;
+                if (comanda.equals("exit"))
+                {
+                    socket.close();
+                    break;
+                }
 
                 // trimite comanda catre server
                 output.println(comanda);
