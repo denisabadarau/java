@@ -23,7 +23,7 @@ public class ClientThread extends Thread{
             BufferedReader input=new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String comanda=input.readLine();
 
-            //se trimite raspunsul catre server
+
             //daca serverul primeste comanda "stop", se opreste si returneaza clientului raspunsul "Server stopped
             PrintWriter output=new PrintWriter(socket.getOutputStream());
             String raspuns;
@@ -31,15 +31,25 @@ public class ClientThread extends Thread{
             {
                 //daca serverul primeste comanda "stop", se opreste
                 raspuns="Serverul s-a oprit";
+
+                //se trimite raspunsul catre server
                 output.println(raspuns);
+
+                //golesc bufferul
                 output.flush();
+
+                //inchid socketul
                 socket.close();
             }
             else
             {
                 //in caz contrar, afisez comanda
                 raspuns="Serverul a primit comanda " + comanda;
+
+                //se trimite raspunsul catre server
                 output.println(raspuns);
+
+                //golesc bufferul
                 output.flush();
             }
 
