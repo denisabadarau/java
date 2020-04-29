@@ -18,6 +18,8 @@ public class GameClient {
             Socket socket = new Socket(serverAddress, port);
             PrintWriter output= new PrintWriter(socket.getOutputStream(), true);
             BufferedReader input = new BufferedReader (new InputStreamReader(socket.getInputStream())) ;
+
+            //pe masura ce citesc comenzi de la tastatura, le transmit serverului, si in final afisez raspunsul serverului
             while(true)
             {
                 String comanda;
