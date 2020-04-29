@@ -19,38 +19,39 @@ public class ClientThread extends Thread{
     {
         try
         {
-            //obtine comanda de la client
-            BufferedReader input=new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String comanda=input.readLine();
+            while(true) {
+
+                //obtine comanda de la client
+                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                String comanda = input.readLine();
 
 
-            //daca serverul primeste comanda "stop", se opreste si returneaza clientului raspunsul "Server stopped
-            PrintWriter output=new PrintWriter(socket.getOutputStream());
-            String raspuns;
-            if(comanda.equals("stop"))
-            {
-                //daca serverul primeste comanda "stop", se opreste
-                raspuns="Serverul s-a oprit";
+                //daca serverul primeste comanda "stop", se opreste si returneaza clientului raspunsul "Server stopped
+                PrintWriter output = new PrintWriter(socket.getOutputStream());
+                String raspuns;
+                if (comanda.equals("stop")) {
+                    //daca serverul primeste comanda "stop", se opreste
+                    raspuns = "Serverul s-a oprit";
 
-                //se trimite raspunsul catre server
-                output.println(raspuns);
+                    //se trimite raspunsul catre server
+                    output.println(raspuns);
 
-                //golesc bufferul
-                output.flush();
+                    //golesc bufferul
+                    output.flush();
 
-                //inchid socketul
-                socket.close();
-            }
-            else
-            {
-                //in caz contrar, afisez comanda
-                raspuns="Serverul a primit comanda " + comanda;
+                    //inchid socketul
+                    socket.close();
+                    break;
+                } else {
+                    //in caz contrar, afisez comanda
+                    raspuns = "Serverul a primit comanda " + comanda;
 
-                //se trimite raspunsul catre server
-                output.println(raspuns);
+                    //se trimite raspunsul catre server
+                    output.println(raspuns);
 
-                //golesc bufferul
-                output.flush();
+                    //golesc bufferul
+                    output.flush();
+                }
             }
 
         }catch(IOException e)
