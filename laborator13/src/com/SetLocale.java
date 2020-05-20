@@ -2,11 +2,11 @@ package com;
 
 import java.util.Locale;
 
-//SetLocale: to set the application current locale.
+//SetLocale: to set the application current locale or a specific locale
 public class SetLocale {
-    public SetLocale(){
-        Locale currentLocale = Locale.getDefault();
-        System.out.println(currentLocale);
-    }
+    Locale locale;
 
+    public SetLocale(Locale locale){
+        this.locale.setDefault(locale);
+    }
 }
